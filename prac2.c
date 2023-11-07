@@ -137,7 +137,29 @@ int main(){
 	int a=0,b=0, c=0;
 	float s=0, V0[N];
 	PrintVect(V1, a, b);
-	PrintRow(Mat, a, b, c);
-	MultEscalar(V1, V0, s);
+	
+        PrintRow(Mat, a, b, c);
+        printf(" \n");
 
+        printf("Escalar pel que multiplicar: ");
+        scanf("%f\n", &s);
+        printf("\n");
+
+        MultEscalar(V1, V0, s);
+        printf("\n");
+
+        Scalar(V1, V3);
+        printf("\n");
+
+        Magnitude(V1);
+        printf("\n");
+
+        printf("Els vectors són ortogonals: %d\n", Ortogonal(V1, V2));
+        printf("\n");
+
+        Projection(V1, V2, V0);
+        printf("\n");
+
+        printf("Màxima suma dels valors per files: ");
+        Infininorm(Mat);
 }
