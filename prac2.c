@@ -86,6 +86,51 @@ float Scalar( float vect1[N], float vect2[N] ){
         printf("Resultat multiplicació escalar: %f\n", res);
 }
 
+float Magnitude( float vect[N] ){
+        float mult;
+        float magnitud;
+
+        mult=Scalar(vect, vect);
+
+        magnitud=sqrt(mult);
+        printf("La magnitud del vector és: %f\n", magnitud);
+
+}
+
+int Ortogonal( float vect1[N], float vect2[N] ){
+
+        float mult;
+        int ortogonals;
+
+        mult=Scalar(vect1, vect2);
+        if (mult==0)
+                ortogonals=1;
+        else
+                ortogonals=0;
+
+        return (ortogonals);
+
+}
+
+void Infininorm( float M[N][N] ){
+
+        float max=0;
+        int i,j;
+        float fila;
+
+        for (j=0; j<N; j++){
+                fila=0;
+                for (i=0; i<N; i++){
+                        fila=fila + M[j][i];
+                }
+                if (fila>max){
+                        max=fila;
+                }
+        }
+
+        printf("%f", max);
+}
+
 
 int main(){
 	InitData();
