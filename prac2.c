@@ -75,6 +75,18 @@ void MultEscalar( float vect[N], float vectres[N], float alfa ){
 	}
 }
 
+float Scalar( float vect1[N], float vect2[N] ){
+        int i;
+        float res=0;
+        for (i=0; i<N; i++){
+                res=res+(vect1[i]*vect2[i]);
+        }
+        return (res);
+
+        printf("Resultat multiplicació escalar: %f\n", res);
+}
+
+
 int main(){
 	InitData();
 	int a=0,b=0, c=0;
@@ -82,4 +94,5 @@ int main(){
 	PrintVect(V1, a, b);
 	PrintRow(Mat, a, b, c);
 	MultEscalar(V1, V0, s);
+
 }
