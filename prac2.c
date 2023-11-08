@@ -73,6 +73,13 @@ void MultEscalar( float vect[N], float vectres[N], float alfa ){
 	for (i=0; i<N; i++){
 		vectres[i]=vect[i]*alfa;
 	}
+
+	printf("Multiplicació del vector per %f:\n", alfa);
+	
+	for (i=0; i<N; i++){
+		printf("%f  ", vectres[i]);
+	}
+
 }
 
 float Scalar( float vect1[N], float vect2[N] ){
@@ -112,7 +119,18 @@ int Ortogonal( float vect1[N], float vect2[N] ){
 
 }
 
-void Infininorm( float M[N][N] ){
+void Projection( float vect1[N], float vect2[N], float vectres[N] ){
+
+        float mult;
+        float escalar;
+
+        mult=Scalar(vect1, vect2);
+        escalar=mult/Magnitude(vect2);
+        MultEscalar(vect2, vectres, escalar);
+
+}
+
+float Infininorm( float M[N][N] ){
 
         float max=0;
         int i,j;
@@ -130,6 +148,67 @@ void Infininorm( float M[N][N] ){
 
         printf("%f", max);
 }
+
+float Onenorm( float M[N][N] ){
+
+        float max=0;
+        int i,j;
+        float columna;
+
+        for (j=0; j<N; j++){
+                columna=0;
+                for (i=0; i<N; i++){
+                        columna=columna + M[i][j];
+                }
+                if (columna>max){
+                        max=columna;
+                }
+        }
+
+        printf("%f", max);
+
+}
+
+float NormFrobenius( float M[N][N] ){
+	
+	int i, j;
+	float suma=0;
+	float Frob;
+
+	for (j=0; j<N; j++){
+		for (i=0; i<N; i++){
+			suma=suma+pow(M[j][i], 2);
+		}
+	}
+	
+	Frob=pow(suma, 1/2);
+
+	printf("La norma de Frobenius és: %f\n", Frob);
+
+}
+
+int DiagonalDom( float M[N][N] ){
+	
+	int i,j,k;
+	int diagonal=1;
+	float fila=0;
+
+	for (i=0; i<N; i++){
+		for (j=0; j<N; j++){
+			fila=fila+M[j][i];
+		}
+			for (k=0; k<N; k++){
+			while (M[k][i]==fila-M[k][i]){
+				diagonal=1;
+			}
+		}
+	}
+
+	return (diagonal);
+
+	printf("%d", diagonal);
+}
+
 
 
 int main(){
@@ -162,4 +241,12 @@ int main(){
 
         printf("Màxima suma dels valors per files: ");
         Infininorm(Mat);
+	printf("\n");
+
+	Onenorm(Mat);
+	printf("\n");
+
+	NormFrobenius(Mat);
+	printf("\n");
+
 }
