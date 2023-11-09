@@ -11,7 +11,7 @@ float V4[N];
 
 void InitData(){
 	int i,j;
-	srand(8824553);
+	srand(4422543);
 	for( i = 0; i < N; i++ )
 		for( j = 0; j < N; j++ ){
 			Mat[i][j]=(((i*j)%3)?-1:1)*(100.0*(rand()/(1.0*RAND_MAX)));
@@ -41,7 +41,7 @@ void PrintVect( float vect[N], int from, int numel ){
 	fin=from+numel;
 
 	for (i=from; i<fin; i++){
-		printf("%f\n", vect[i]);
+		printf("%f  ", vect[i]);
 	}
 }
 
@@ -60,7 +60,7 @@ void PrintRow( float mat[N][N], int row, int from, int numel ){
 	fin=from+numel;
 
 	for (i=from; i<fin; i++){
-		printf("%f\n", mat[row][i]);
+		printf("%f  ", mat[row][i]);
 	}
 }
 
@@ -195,13 +195,14 @@ int DiagonalDom( float M[N][N] ){
 
 	for (i=0; i<N; i++){
 		for (j=0; j<N; j++){
-			fila=fila+M[j][i];
+			fila=fila+abs(M[i][j]);
 		}
-			for (k=0; k<N; k++){
-			while (M[k][i]==fila-M[k][i]){
-				diagonal=1;
-			}
+		if (abs(M[i][j]) <= fila){
+			diagonal=1;
+		}else{
+			diagonal=0;
 		}
+		
 	}
 
 	return (diagonal);
@@ -209,20 +210,44 @@ int DiagonalDom( float M[N][N] ){
 	printf("%d", diagonal);
 }
 
+int Jacobi( float M[N][N] , float vect[N], float vectres[N], unsigned iter ){
+	int i,j,x,k,resultat;
+	float suma=0;
+	int diagonal;
 
+	diagonal=DiagonalDom(M);
+		if (diagonal==1){
+		        for (k=0; k<iter; k++) {
+			         for (i = 0; i < N; i++) {
+				           for (j = 0; j < N; j++) {
+					             if (j != i) {
+						            suma += M[i][j] * vect[j];
+						     }
+					    }
+				}
+				vectres[i] = (vect[i] - suma) / M[i][i];
+			}
+		resultat=1;
+		}else{
+		       resultat=0;
+		}
+	for (x=0; x<N; x++){
+                printf("%f  ", vectres[x]);
+        }
+
+	return (resultat);
+}
 
 int main(){
 	InitData();
 	int a=0,b=0, c=0;
 	float s=0, V0[N];
-	PrintVect(V1, a, b);
 	
+	PrintVect(V1, a, b);
+	printf("\n");
+
         PrintRow(Mat, a, b, c);
         printf(" \n");
-
-        printf("Escalar pel que multiplicar: ");
-        scanf("%f\n", &s);
-        printf("\n");
 
         MultEscalar(V1, V0, s);
         printf("\n");
@@ -248,5 +273,7 @@ int main(){
 
 	NormFrobenius(Mat);
 	printf("\n");
+
+
 
 }
