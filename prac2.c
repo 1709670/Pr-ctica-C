@@ -111,10 +111,11 @@ int Ortogonal( float vect1[N], float vect2[N] ){
         int ortogonals;
 
         mult=Scalar(vect1, vect2);
-        if (mult==0)
+        if (mult==0){
                 ortogonals=1;
-        else
+	}else{
                 ortogonals=0;
+	}
 
         return (ortogonals);
 
