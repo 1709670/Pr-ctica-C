@@ -76,8 +76,9 @@ void MultEscalar( float vect[N], float vectres[N], float alfa ){
 
 	printf("Multiplicació del vector per %f:\n", alfa);
 	
-	for (i=0; i<N; i++){
-		printf("%f  ", vectres[i]);
+	int j;
+	for (j=0; j<N; j++){
+		printf("%f  ", vectres[j]);
 	}
 
 }
